@@ -34,7 +34,7 @@ client.on('ready', () => {
 });
 
 client.on('interactionCreate', async interaction => {
-// #ff0000
+
     if(interaction.isButton()) {
     if(interaction.customId.includes("_btn")) {
 
