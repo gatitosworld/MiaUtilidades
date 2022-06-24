@@ -1,16 +1,49 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { PermissionFlagsBits } = require("discord-api-types/v10");
-const { DiscordAPIError, MessageEmbed } = require("discord.js");
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
 
+const ajustes = require("../config"); const token = ajustes.cliente.token;
+const fs = require('fs');
+
+const Discord = require("discord.js")
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { PermissionFlagsBits } = require('discord-api-types/v10');
+
+
+// PENDIENTE FSREDIR && MSGS
 module.exports = {
+	data: new SlashCommandBuilder()
+		.setName('actualizar')
+		.setDescription('Aqwed')
+		.setDMPermission(false)
+		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+	async execute(client, interaction) {
+		try {
+			var respuesta
+			await interaction.reply({ embeds: [new Discord.MessageEmbed().setDescription("").setColor("")], ephemeral: true });
+			const commands = [];
+			const commandFiles = fs.readdirSync(' ').filter(file => file.endsWith('.js'));
 
-    data: new SlashCommandBuilder()
-        .setName("actualizar")
-        .setDescription("Refresca los comandos mediante REST.")
-        .setDMPermission(true),
-    async execute(interaction) {
-    
-            if(interaction.user.id !== "620359406537670677") return interaction.reply({ embeds: [new MessageEmbed().setTitle("¡No puedes ejecutar esto!").setColor("RED")], ephemeral: true})
+			for (const file of commandFiles) {
+				const command = require(`./cmds/${file}`);
+			
+				commands.push(command.data.toJSON());
+			}
 
-    }
-}
+			const rest = new REST({ version: '9' }).setToken(token);
+
+			(async () => {
+				try {
+					await rest.put(
+						Routes.applicationCommands(ajustes.cliente.clientId),
+						{ body: commands },
+					);
+				} catch (e) {
+					console.error(e);
+				}
+			})();
+			await interaction.editReply({ embeds: [new Discord.MessageEmbed().setDescription("").setColor("")], ephemeral: true })
+		} catch (e) {
+			// catch 
+		}
+	},
+};
