@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const { Client, Intents, Collection } = require("discord.js");
-const { MessageEmbed, MessageButton } = require("discord.js");
+const { MessageEmbed, MessageButton, MessageActionRow } = require("discord.js");
 
 // == Node Basics ==
 const fs = require("fs");
@@ -48,16 +48,25 @@ client.on('interactionCreate', async interaction => {
             .setTitle("¡No tienes permiso para ejecutar eso!")
               .setColor("#da745e");
           
-          if(!member.roles.cache.some(role => role.id === "988417077566132244")) return interaction1.reply({ embeds: [embed1], ephemeral: true});
+          if(!member.roles.cache.some(role => role.id === ajustes.cliente.rolId)) return interaction.reply({ embeds: [embed1], ephemeral: true});
 
           let result = members.voice.channel;  
           let vcinvite = await result.createInvite({ unique: true });
           let link = `https://discord.gg/${vcinvite.code}`  
-          var link_global = manager.get("")
+          let calculardenuevo = manager.get("calculardenuevo");
 
-          // === PENDIENTE ^ ===
+        let unirseavc = new MessageButton()
+            .setStyle("LINK")
+            .setLabel("Unirse al vc")
+            .setURL(link)
 
-        const embedno = new MessageEmbed()
+        let button = new MessageActionRow()
+        .addComponents(calculardenuevo)
+        .addComponents(unirseavc)
+          
+        
+
+        let embedno = new MessageEmbed()
         .setTitle("Vaya...")
         .setDescription("<a:no:859503242421338152> **El usuario no se encuentra en ningún canal de voz.**")
         .setColor("#da745e")
@@ -65,13 +74,14 @@ client.on('interactionCreate', async interaction => {
     
         if(result == null) return await interaction1.editReply({ embeds: [embedno] }); 
         
-        const embedyes = new MessageEmbed()
+        let embedyes = new MessageEmbed()
         .setTitle("¡Hecho!")
         .setDescription(`**He detectado que ${members} está actualmente en ${result}**`)
         .setColor("#57cc26")
             
-            // === FALTA QUE EDITE CADA COSA CORRECTAMENTE O QUE RESPONDA Y AÑADDA BIEN LOS COMPONENTES ===
-            await interaction.reply({ embeds: [embedyes] }); 
+          
+            await interaction1.editReply({ embeds: [embedyes] }); 
+            await interaction.update({ embeds: [embedyes], components: [button] });
 
 
         }
@@ -91,6 +101,7 @@ client.on('interactionCreate', async interaction => {
 	} catch (error) {
 		console.error(error);
 		await interaction.reply({ content: '¡Ha ocurrido un error al ejecutar este comando!', ephemeral: true });
+     
 	}
 });
 

@@ -1,6 +1,7 @@
 const { PermissionFlagsBits } = require('discord-api-types/v10');
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed, MessageButton, MessageActionRow, Invite } = require("discord.js");
+const ajustes = require("../config");
 const manager = require("../manager");
 
 module.exports = {
@@ -21,15 +22,13 @@ module.exports = {
         .setColor("#da745e");
   
       
-      if(!member.roles.cache.some(role => role.id === "988417077566132244")) return interaction.reply({ embeds: [embed1], ephemeral: true});
+      if(!member.roles.cache.some(role => role.id === ajustes.cliente.rolId)) return interaction.reply({ embeds: [embed1], ephemeral: true});
 
       const embedno = new MessageEmbed()
       .setTitle("Vaya...")
       .setDescription("<a:no:859503242421338152> **El usuario no se encuentra en ningún canal de voz.**")
       .setColor("#da745e")
       
-
-       
         let result = mem.voice.channel; 
         let vcinvite = await result.createInvite({ unique: true });
         let link = `https://discord.gg/${vcinvite.code}`
@@ -41,11 +40,18 @@ module.exports = {
         .setLabel("Comprobar")
         .setStyle("DANGER")
 
+        manager.post("calculardenuevo", calculardenuevo); 
       
-
+        const unirseavc = new MessageButton()
+        .setStyle("LINK")
+        .setLabel("Unirse al vc")
+        .setURL(link)
+        
            const button = new MessageActionRow()
         .addComponents(calculardenuevo)
-    //   .addComponents(unirseavc)
+        .addComponents(unirseavc)
+
+        manager.post("button", button);
 
       if(result == null) return interaction.reply({ embeds: [embedno], components: [button]}); 
       
