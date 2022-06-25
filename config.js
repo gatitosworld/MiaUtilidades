@@ -6,7 +6,7 @@ const ajustes = {
     cliente: {
 
         token: "OTg1OTgzMTczMTQzOTgyMDkx.G_InAW.U5MV6yDDtEK70i_CiUvfzT1KL6MtQxTTSIIZwc",
-        guildId: "892748318587879454",
+        guildId: "892748318587879454", //
         clientId: "985983173143982091",
         rolId: "892751141421584445"
 
