@@ -1,8 +1,8 @@
 const { PermissionFlagsBits } = require('discord-api-types/v10');
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed, MessageButton, MessageActionRow, Invite } = require("discord.js");
-const ajustes = require("../config");
-const manager = require("../manager");
+const ajustes = require("../../../config");
+const manager = require("../../../manager.ts");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -30,18 +30,21 @@ module.exports = {
       .setColor("#da745e")
       
         let result = mem.voice.channel; 
-        let vcinvite = await result.createInvite({ unique: true });
-        let link = `https://discord.gg/${vcinvite.code}`
-
-     
 
         const calculardenuevo = new MessageButton()
         .setCustomId("calculardenuevo_btn")
         .setLabel("Comprobar")
         .setStyle("DANGER")
-
+        
+        const button2 = new MessageActionRow()
+        .addComponents(calculardenuevo)
+        manager.post("button2", button2);
         manager.post("calculardenuevo", calculardenuevo); 
-      
+
+        if(result == null) return interaction.reply({ embeds: [embedno], components: [button2]}); 
+        let vcinvite = await result.createInvite({ unique: true });
+        let link = `https://discord.gg/${vcinvite.code}`;
+
         const unirseavc = new MessageButton()
         .setStyle("LINK")
         .setLabel("Unirse al vc")
@@ -51,9 +54,10 @@ module.exports = {
         .addComponents(calculardenuevo)
         .addComponents(unirseavc)
 
+
         manager.post("button", button);
 
-      if(result == null) return interaction.reply({ embeds: [embedno], components: [button]}); 
+       
       
      const embedyes = new MessageEmbed()
          .setTitle("¡Hecho!")
