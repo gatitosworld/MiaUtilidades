@@ -1,1 +1,0 @@
-// Retroceder al canal de donde partía el usuario

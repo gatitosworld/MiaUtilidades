@@ -21,9 +21,9 @@ for (const file1 of eventFiles) {
 	const filePath1 = path.join(eventsPath, file1);
 	const event = require(filePath1);
 	if (event.once) {
-		client.once(event.name, (...args) => event.execute(...args, client));
+		client.once(event.name, (...args) => event.execute(client, ...args));
 	} else {
-		client.on(event.name, (...args) => event.execute(...args, client));
+		client.on(event.name, (...args) => event.execute(client, ...args));
 	}
 }
 
