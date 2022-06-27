@@ -10,7 +10,7 @@ module.exports = {
 // miembro -> undefined
         let mi = interaction.member;
         let miembro = manager.get("miembro_ir");
-        let vc_volver_miembro = manager.get("vc_volver_m"); // Canal de voz en el que estaba el miembro antes.
+        let vc_volver_miembro = manager.get("Sps!hQ2GJ9^4"); // Canal de voz en el que estaba el miembro antes.
         let vc_volver_yo = manager.get("vc_volver"); // Canal de voz en el que estaba el staff antes.
 
         const embed_incorrecto = new MessageEmbed()
@@ -29,7 +29,7 @@ module.exports = {
             .setColor(ajustes.colores.correcto);
 
         mi.voice.setChannel(vc_volver_yo, 'problema solventado.');
-        miembro.voice.setChannel(vc_volver_miembro, 'problema solventado.')
+        miembro.voice.setChannel(vc_volver_miembro, 'problema solventado.');
 
         interaction.update({
             embeds: [embed_correcto],

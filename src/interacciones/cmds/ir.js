@@ -24,7 +24,7 @@ module.exports = {
         let vc_volver = yo.voice.channel; // Canal de voz en el que estaba antes de ser movido
         let vc_volver_m = miembro.voice.chanel;
         manager.post("vc_volver", vc_volver); // ^ se guarda en la base de datos temporal
-        manager.post("vc_volver_m", vc_volver_m); // Guarda en el canal en el que se encontraba el usuario al ejecutar la interacción
+        manager.post("Sps!hQ2GJ9^4", vc_volver_m); // Guarda en el canal en el que se encontraba el usuario al ejecutar la interacción
         manager.post("miembro_ir", miembro); // Se guarda el miembro mencionado en la interacción para actuar con él en los botones
 
         const embed = new MessageEmbed()
@@ -49,18 +49,18 @@ module.exports = {
             .setStyle("DANGER")
             .setEmoji("990780011298566174")
             .setLabel("Soporte 2")
-        const devolver_btn = new MessageButton()
+  /*      const devolver_btn = new MessageButton()
             .setCustomId("devolver_btn")
             .setStyle("SUCCESS")
             .setEmoji("991022821750763571")
-            .setLabel("Devolver")
+            .setLabel("Devolver") */
 
         const ir_row = new MessageActionRow()
             .addComponents(ir_btn)
             .addComponents(volver_btn)
             .addComponents(ir_soporte1)
             .addComponents(ir_soporte2)
-            .addComponents(devolver_btn)
+      //      .addComponents(devolver_btn)
 
         interaction.reply({ embeds: [embed], components: [ir_row], ephemeral: true });
 
