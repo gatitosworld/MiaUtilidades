@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { PermissionFlagsBits } = require("discord-api-types/v10");
-const { MessageEmbed, MessageButton } = require("discord.js");
+const { MessageEmbed, MessageButton, MessageActionRow } = require("discord.js");
 const manager = require("../../../manager");
 
 module.exports = {
@@ -18,11 +18,10 @@ module.exports = {
         let miembro = interaction.options.getMember("usuario");
         let yo = interaction.member;
 
-
         let vc_ir = miembro.voice.channel;
-        let vc_volver = yo.voice.channel;
-        manager.post("vc_volver/ir", vc_volver);
-        manager.post("miembro_ir", miembro);
+        let vc_volver = yo.voice.channel; // Canal de voz en el que estaba antes de ser movido
+        manager.post("vc_volver/ir", vc_volver); // ^ se guarda en la base de datos temporal
+        manager.post("miembro_ir", miembro); // Se guarda el miembro mencionado en la interacción para actuar con él en los botones
 
         const embed = new MessageEmbed()
             .setTitle("¿Está realmente seguro de que quiere hacer esto?")
@@ -40,15 +39,20 @@ module.exports = {
             .setCustomId("ir_soporte1")
             .setStyle("DANGER")
             .setEmoji("990780011298566174")
-            .setLabel("Soporte")
+            .setLabel("Soporte 1")
         const ir_soporte2 = new MessageButton()
             .setCustomId("ir_soporte2")
             .setStyle("DANGER")
             .setEmoji("990780011298566174")
-            .setLabel("Soporte")
-        
+            .setLabel("Soporte 2")
 
-        interaction.reply({ embeds: [], components: [] })
+        const ir_row = new MessageActionRow()
+            .addComponents(ir_btn)
+            .addComponents(volver_btn)
+            .addComponents(ir_soporte1)
+            .addComponents(ir_soporte2)
+
+        interaction.reply({ embeds: [embed], components: [ir_row] });
 
     }
 
