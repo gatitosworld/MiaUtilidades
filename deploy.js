@@ -11,7 +11,7 @@ const { Routes } = require("discord-api-types/v10");
 const ajustes = require("./config");
 
 const cmds = [];
-const directorioCmds = path.join(__dirname, 'cmds');
+const directorioCmds = path.join(__dirname, 'src/interacciones/cmds');
 const archivosCmds = fs.readdirSync(directorioCmds).filter(file => file.endsWith(".js"));
 
 for (const file of archivosCmds) {

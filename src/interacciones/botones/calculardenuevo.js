@@ -28,7 +28,7 @@ module.exports = {
       .setColor("#da745e")
     
 
-    if (result == null) return await interaction1.editReply({ embeds: [embedno], components: [button2] });
+    if (result == null) return await interaction.update({ embeds: [embedno], components: [button2] });
     let vcinvite = await result.createInvite({ unique: true });
     let link = `https://discord.gg/${vcinvite.code}`
     let unirseavc = new MessageButton()

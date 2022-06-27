@@ -8,7 +8,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("comprobarvoice")
         .setDescription("Comprueba el canal de voz en el que está un usuario.")
-        .addUserOption(option => option.setName("usuario").setDescription("Nombre del usuario."))
+        .addUserOption(option => option.setName("usuario").setDescription("Nombre del usuario.").setRequired(true))
         .setDMPermission(false)
         .setDefaultMemberPermissions( PermissionFlagsBits.ManageMessages ), // Si puede gestionar mensajes ->
     async execute(interaction) { 
