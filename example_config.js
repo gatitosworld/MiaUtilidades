@@ -15,6 +15,12 @@ const ajustes = {
     // Listado de intents requeridos para que se hagan con éxito las interacciones y para futuras actualizaciones
         cargados: []
 
+    },
+    colores: { // Importante poner el # y los datos HEX
+        correcto: "", 
+        incorrecto: "", 
+        normal: ""
+
     }
 
 }

@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { PermissionFlagsBits } = require("discord-api-types/v10");
 const { MessageEmbed, MessageButton, MessageActionRow } = require("discord.js");
-const manager = require("../../../manager");
+const manager = require("../../../manager.ts");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,9 +11,9 @@ module.exports = {
         .setDefaultMemberPermissions(PermissionFlagsBits.MuteMembers)
         .addUserOption(option => option.setName("usuario").setDescription("Te mueve al canal en el que se encuentra un usuario.").setRequired(true)),
 
-    async execute(interaction, client) {
-        const soporte1 = client.channels.cache.get("935623143421251744");
-        const soporte2 = client.channels.cache.get("984943509503090708");
+    async execute(client, interaction) {
+        const soporte1 = client.channels.cache.get("990998130218659900");
+        const soporte2 = client.channels.cache.get("990998161411686432");
 
         let miembro = interaction.options.getMember("usuario");
         let yo = interaction.member;
