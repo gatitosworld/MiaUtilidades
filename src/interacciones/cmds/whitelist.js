@@ -24,7 +24,6 @@ module.exports = {
 
     async execute(db, interaction) {
 
-
         const enlace = interaction.options.getString("enlace");
 
         const arr = await db.get('wl');
@@ -96,7 +95,6 @@ module.exports = {
             }
 
             
-
         }
 
 
