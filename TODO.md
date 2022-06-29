@@ -14,4 +14,3 @@
 
 - Actualizar handler de botones para que se pueda subdividir en carpetas y organizar mejor de dónde pertenece cada botón
 - Sistema de prevención de errores
-- Reactualización e implementación de GWMODAPI para eliminar enlaces y mensajes no permitidos
