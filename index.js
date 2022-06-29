@@ -50,6 +50,20 @@ for (const folder of buttonFolders) {
     }
 }
 
+/* ===== SETUP DE LA BASE DE DATOS ===== */
+async function configurar(){
+	let database = await db.get('wl');
+
+	if(database != null) {
+		return console.log("Ya existe una base de datos. Skipeando.");
+	} else {
+		await db.push('wl', ['discord.com', 'discord.gift']);
+		console.log("Base de datos creada satisfactoriamente.");
+	}
+
+}
+
+configurar();
 
 
 client.login(ajustes.cliente.token);
