@@ -20,7 +20,6 @@ module.exports = {
         } else if(interaction.isButton()) {
 
             const boton = client.buttons.get(interaction.customId);
-            console.log(boton);
           if (!boton) return;
             try {
                 await boton.execute(interaction);

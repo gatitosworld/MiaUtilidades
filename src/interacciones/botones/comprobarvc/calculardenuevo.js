@@ -1,7 +1,7 @@
 const { ButtonBuilder } = require("@discordjs/builders");
 const { MessageEmbed, MessageButton, MessageActionRow } = require("discord.js");
-const ajustes = require("../../../config");
-const manager = require("../../../manager.ts");
+const ajustes = require("../../../../config");
+const manager = require("../../../../manager.ts");
 
 module.exports = {
   data: {

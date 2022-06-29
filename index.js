@@ -8,7 +8,7 @@ const { QuickDB } = require('quick.db');
 const db = new QuickDB();
 
 const client = new Client({
-    intents: ajustes.intents.cargados
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_WEBHOOKS]
 });
 
 // === Colecciones ===
@@ -23,7 +23,7 @@ for (const file1 of eventFiles) {
 	const filePath1 = path.join(eventsPath, file1);
 	const event = require(filePath1);
 	if (event.once) {
-		client.once(event.name, (...args) => event.execute(client, db, ...args));
+		client.once(event.name, (...args) => event.execute(client, ...args));
 	} else {
 		client.on(event.name, (...args) => event.execute(client, db, ...args));
 	}
@@ -40,14 +40,16 @@ for (const file2 of commandFiles) {
 }
 
 /* ===== BOTONES ===== */
-const botonesPath = path.join(__dirname, 'src/interacciones/botones');
-const botonesFiles = fs.readdirSync(botonesPath).filter(file => file.endsWith('.js'));
+const buttonFolders = fs.readdirSync('./src/interacciones/botones');
 
-for (const file3 of botonesFiles) {
-	const filePath3 = path.join(botonesPath, file3);
-	const boton = require(filePath3);
-	client.buttons.set(boton.data.name, boton);
+for (const folder of buttonFolders) {
+    const buttonFiles = fs.readdirSync(`./src/interacciones/botones/${folder}`).filter(file => file.endsWith('.js'));
+    for (const file of buttonFiles) {
+        const button = require(`./src/interacciones/botones/${folder}/${file}`);
+        client.buttons.set(button.data.name, button);
+    }
 }
+
 
 
 client.login(ajustes.cliente.token);

@@ -1,5 +1,5 @@
-const manager = require("../../../manager.ts");
-const ajustes = require("../../../config");
+const manager = require("../../../../manager.ts");
+const ajustes = require("../../../../config");
 const { MessageEmbed } = require("discord.js");
 
 module.exports = {

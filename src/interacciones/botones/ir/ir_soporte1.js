@@ -1,19 +1,19 @@
-const manager = require("../../../manager.ts");
-const ajustes = require("../../../config");
+const manager = require("../../../../manager.ts");
+const ajustes = require("../../../../config");
 
 const { MessageEmbed } = require("discord.js");
 
 module.exports = {
     data: {
-        name: 'ir_soporte2'
+        name: 'ir_soporte1'
     },
     async execute(interaction) {
-        let soporte1 = interaction.guild.channels.cache.get("990998161411686432");
+        let soporte1 = interaction.guild.channels.cache.get("990998130218659900");
         let mi = interaction.member;
         let miembro = manager.get("miembro_ir");
 
         const embed_yaestais = new MessageEmbed()
-        .setTitle("¡Ya estáis en soporte 2!")
+        .setTitle("¡Ya estáis en soporte!")
         .setColor(ajustes.colores.incorrecto)
 
         const embed_nohayvc = new MessageEmbed()
@@ -30,7 +30,7 @@ module.exports = {
         
 
         const embed_correcto = new MessageEmbed()
-            .setTitle("Se os ha movido a ambos a Soporte 2.")
+            .setTitle("Se os ha movido a ambos a Soporte 1.")
             .setColor(ajustes.colores.correcto);
 
         mi.voice.setChannel(soporte1, 'cuestiones de moderación.');
