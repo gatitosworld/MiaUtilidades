@@ -1,9 +1,11 @@
 const { Client, Intents, Collection } = require("discord.js");
 const fs = require("fs");
 const manager = require("./manager.ts");
-
 const ajustes = require("./config");
 const path = require("path");
+
+const { QuickDB } = require('quick.db');
+const db = new QuickDB();
 
 const client = new Client({
     intents: ajustes.intents.cargados
@@ -21,9 +23,9 @@ for (const file1 of eventFiles) {
 	const filePath1 = path.join(eventsPath, file1);
 	const event = require(filePath1);
 	if (event.once) {
-		client.once(event.name, (...args) => event.execute(client, ...args));
+		client.once(event.name, (...args) => event.execute(client, db, ...args));
 	} else {
-		client.on(event.name, (...args) => event.execute(client, ...args));
+		client.on(event.name, (...args) => event.execute(client, db, ...args));
 	}
 }
 

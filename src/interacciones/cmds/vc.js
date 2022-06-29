@@ -10,8 +10,9 @@ module.exports = {
         .setDescription("Comprueba el canal de voz en el que está un usuario.")
         .addUserOption(option => option.setName("usuario").setDescription("Nombre del usuario.").setRequired(true))
         .setDMPermission(false)
-        .setDefaultMemberPermissions( PermissionFlagsBits.ManageMessages ), // Si puede gestionar mensajes ->
-    async execute(interaction) { 
+        .setDefaultMemberPermissions( PermissionFlagsBits.ManageMessages, PermissionFlagsBits.MuteMembers )
+        .setDMPermission(false), 
+    async execute(db, interaction) { 
       let mem = interaction.options.getMember("usuario");
       manager.post("mem", mem); // Almacena localmente el usuario de la interacción.
       manager.post("interaction1", interaction);

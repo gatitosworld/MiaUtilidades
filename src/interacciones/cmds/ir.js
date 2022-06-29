@@ -8,11 +8,11 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("ir")
         .setDescription("Ir al canal de voz de un usuario determinado.")
-        .setDMPermission(false)
-        .setDefaultMemberPermissions(PermissionFlagsBits.MuteMembers, PermissionFlagsBits.ManageMessages)
-        .addUserOption(option => option.setName("usuario").setDescription("Te mueve al canal en el que se encuentra un usuario.").setRequired(true)),
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages, PermissionFlagsBits.MuteMembers)
+        .addUserOption(option => option.setName("usuario").setDescription("Te mueve al canal en el que se encuentra un usuario.").setRequired(true))
+        .setDMPermission(false),
 
-    async execute(interaction) {
+    async execute(db, interaction) {
 
         let miembro = interaction.options.getMember("usuario");
         let yo = interaction.member;

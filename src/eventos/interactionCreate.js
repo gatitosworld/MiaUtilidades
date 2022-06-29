@@ -2,7 +2,7 @@
 
 module.exports = {
     name: 'interactionCreate',
-    async execute(client, interaction) {
+    async execute(client, db, interaction) {
 
         if (interaction.isCommand()) {
 
@@ -10,7 +10,7 @@ module.exports = {
             if (!comando) return;
 
             try {
-                await comando.execute(interaction);
+                await comando.execute(db, interaction);
             } catch (e) {
                 console.error(e);
                 await interaction.reply({ content: "Ha ocurrido un error al ejecutar este comando. ", ephemeral: true });
