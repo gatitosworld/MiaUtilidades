@@ -8,7 +8,7 @@ module.exports = {
         name: 'ir_soporte2'
     },
     async execute(interaction) {
-        let soporte1 = interaction.guild.channels.cache.get("990998161411686432");
+        let soporte1 = interaction.guild.channels.cache.get("984943509503090708");
         let mi = interaction.member;
         let miembro = manager.get("miembro_ir");
 
