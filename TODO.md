@@ -16,5 +16,9 @@
 - `blacklist.js`:
     - Comando para añadir, eliminar y/o revisar si un usuario está en la blacklist.
 
+
+
+- Sistema para llamar a staffs activos -> si se hace más de X veces en un tiempo corto (20 min) @here -> #staff-chat
+
 [`gatitosworld-api@2.0.0`](https://github.com/gatitosworld/gatitosworld-api)
 - Sistema de prevención de errores
