@@ -17,7 +17,7 @@ module.exports = {
 
         let matt = "21674692307006259"; let cap = "408728483808673792";
         let ticket_parent = "827214252787499050";
-        let staff_parent = "893806864624676874";
+        let staff_parent = "849284765554442270";
 
         if(link && message.channel.parentId == ticket_parent) return console.log("[AntiLinks] Se ha enviado en un ticket. Autorizado.");
         if(link && message.channel.parentId == staff_parent) return console.log("[AntiLinks] Se ha enviado en un canal de staff. Autorizado.")
