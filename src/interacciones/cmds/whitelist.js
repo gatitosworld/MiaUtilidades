@@ -14,11 +14,11 @@ module.exports = {
                 .setRequired(true)
                 .addChoices(
                     { name: "añadir", value: "añadir" },
-                    { name: "remover", value: "remover" }))
+                    { name: "remover", value: "remover" },
+                    { name: "ver", value: "ver" }))
         .addStringOption(option =>
             option.setName("enlace")
-                .setDescription("Agrega el enlace en sí: ponerlo sin HTTP o HTTPS.")
-                .setRequired(true))
+                .setDescription("Agrega el enlace en sí: ponerlo sin HTTP o HTTPS."))
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages, PermissionFlagsBits.KickMembers)
         .setDMPermission(false),
 
@@ -29,6 +29,11 @@ module.exports = {
         const arr = await db.get('wl');
 
         if (interaction.options.getString("acción") == "añadir") {
+            let embed_algofalla = new MessageEmbed()
+                .setTitle("Parece que no has includo un enlace que añadir...")
+                .setColor(ajustes.colores.incorrecto);
+
+            if (!interaction.options.getString("enlace")) return interaction.reply({ embeds: [embed_algofalla], ephemeral: true })
             let embed_yaesta = new MessageEmbed()
                 .setTitle(`Parece que el término ${enlace} ya se encuentra en la base de datos.`)
                 .setColor(ajustes.colores.incorrecto)
@@ -54,8 +59,12 @@ module.exports = {
             interaction.reply({ embeds: [embed_correcto], ephemeral: true });
         }
 
-        if(interaction.options.getString("acción") == "remover") {
+        if (interaction.options.getString("acción") == "remover") {
+            let embed_algofalla = new MessageEmbed()
+                .setTitle("Parece que no has includo un enlace que remover...")
+                .setColor(ajustes.colores.incorrecto);
 
+            if (!interaction.options.getString("enlace")) return interaction.reply({ embeds: [embed_algofalla], ephemeral: true })
             let arrayastring = arr.join(', ');
             let embed_noesta = new MessageEmbed()
                 .setTitle(`El término ${enlace} para no estar en la base de datos.`)
@@ -65,8 +74,8 @@ module.exports = {
             let embed_error = new MessageEmbed()
                 .setTitle(`Ha ocurrido un error al eliminar ${enlace}. Ya nos hemos puesto en contacto con el desarrollador.`)
                 .setColor(ajustes.colores.incorrecto);
-            
-            if(arr.includes(enlace)) {
+
+            if (arr.includes(enlace)) {
 
                 try {
 
@@ -75,9 +84,9 @@ module.exports = {
                     let arrayastring = uwu.join(', ');
 
                     let embed_correcto = new MessageEmbed()
-                    .setTitle(`Se ha eliminado correctamente ${enlace} de la base de datos.`)
-                    .setDescription(`\`\`\`yaml\n${arrayastring}\`\`\``)
-                    .setColor(ajustes.colores.correcto);
+                        .setTitle(`Se ha eliminado correctamente ${enlace} de la base de datos.`)
+                        .setDescription(`\`\`\`yaml\n${arrayastring}\`\`\``)
+                        .setColor(ajustes.colores.correcto);
 
                     interaction.reply({ embeds: [embed_correcto], ephemeral: true });
 
@@ -94,10 +103,31 @@ module.exports = {
                 return interaction.reply({ embeds: [embed_noesta], ephemeral: true });
             }
 
-            
+
         }
 
+        if (interaction.options.getString("acción") == "ver") {
+
+            let uwu = await db.get('wl');
+            let arrayastring = uwu.join(', ');
+            let embed_correcto = new MessageEmbed()
+                .setTitle("Aquí tienes los links permitidos actualmente:")
+                .setDescription(`\`\`\`yaml\n${arrayastring}\`\`\``)
+                .setColor(ajustes.colores.correcto);
+
+            let embed_correcto2 = new MessageEmbed()
+                .setTitle("Aquí tienes los links permitidos actualmente:")
+                .setDescription(`\`\`\`yaml\n${arrayastring}\`\`\``)
+                .setFooter({
+                    text: "No entiendo por qué has puesto un enlace si solo quieres ver, ok.",
+                    iconURL: "https://cdn.discordapp.com/emojis/264701195573133315.webp?size=128&quality=lossless"
+                })
+                .setColor(ajustes.colores.correcto);
+            if (interaction.options.getString("enlace")) return interaction.reply({ embeds: [embed_correcto2], ephemeral: true });
+            interaction.reply({ embeds: [embed_correcto], ephemeral: true });
+        }
 
     }
-        
+
+
 }
