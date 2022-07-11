@@ -1,7 +1,6 @@
 const { Client, Intents, Collection } = require("discord.js");
 const fs = require("fs");
-const manager = require("./manager.ts");
-const ajustes = require("./config");
+const settings = require("./config");
 const path = require("path");
 
 const { QuickDB } = require('quick.db');
@@ -53,17 +52,30 @@ for (const folder of buttonFolders) {
 /* ===== SETUP DE LA BASE DE DATOS ===== */
 async function configurar(){
 	let database = await db.get('wl');
+	let blacklist_db = await db.get('blacklist');
 
 	if(database != null) {
-		return console.log("Ya existe una base de datos. Skipeando.");
+		console.log("Ya existe una base de datos para 'whitelist'. Skipeando.");
 	} else {
 		await db.push('wl', ['discord.com', 'discord.gift']);
-		console.log("Base de datos creada satisfactoriamente.");
+		console.log("Base de datos para 'whitelist' creada satisfactoriamente.");
 	}
+
+	/* if(blacklist_db != null) {
+		console.log("Ya existe una base de datos para 'blacklist'. Skipeando.");
+	} else {
+		await db.set('blacklist', { datos: { usuario: "id-ejemplo", razon: "id-razon", id_razon: 0 } });
+		console.log("Base de datos para 'blacklist' creada correctamente.");
+	} */
 
 }
 
-configurar();
+try {
+	configurar();
+} catch (e) {
+	console.log("Ha ocurrido un error al configurar la base de datos.")
+}
 
 
-client.login(ajustes.cliente.token);
+
+client.login(settings.cliente.token);

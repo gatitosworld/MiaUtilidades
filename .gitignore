@@ -1,7 +1,11 @@
 
 node_modules/
+.idea/
+.vscode/
 config.js
 package-lock.json
 
+
 *.sqlite
-asd.js
+*.cjs
+empty.js
