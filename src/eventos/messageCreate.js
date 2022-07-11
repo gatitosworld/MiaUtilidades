@@ -9,15 +9,13 @@ module.exports = {
         if (message.author.bot) return;
         if (message.member.permissions.has("ADMINISTRATOR")) return;
 
-
-        let link = gw.links(message.content);
-
         let mods_twitch = "868256143938564136"
         let ticket_parent = "827214252787499050";
         let staff_parent = "849284765554442270";
-        if (message.channel.id == mods_twitch) return console.log("[AntiLinks] El mensaje se ha enviado en un canal autorizado.")
-        if (message.channel.parentId == ticket_parent) return console.log("[AntiLinks] Se ha enviado en un ticket. Autorizado.");
-        if (message.channel.parentId == staff_parent) return console.log("[AntiLinks] Se ha enviado en un canal de staff. Autorizado.");
+        if (message.channel.id == mods_twitch) return;
+        if (message.channel.parentId == ticket_parent) return;
+        if (message.channel.parentId == staff_parent) return;
+
 
         const embed_links = new MessageEmbed()
             .setTitle("¡No se permiten links externos en GatitosWorld!")
@@ -27,6 +25,7 @@ module.exports = {
             .setTitle("¡Trata de no mandar mensajes con tantas líneas que puedan saturar la pantalla!")
             .setColor(ajustes.colores.incorrecto)
 
+        let link = gw.links(message.content);
         let arr = await db.get('wl'); // Array  
         let whl = gw.whitelist(message.content, arr);
         let walltext = gw.walltext(message.content);
@@ -38,41 +37,38 @@ module.exports = {
         if (link) {
             message.reply({ embeds: [embed_links] })
                 .then(msg => {
-                    setTimeout(() => msg.delete(), 3000)
+                    setTimeout(() => msg.delete().catch(error => {
+                        console.error("No se ha podido eliminar el mensaje:", error);
+                    }), 3000)
                 });
-            try {
-                setTimeout(() => message.delete(), 3000);
-            } catch (e) {
-                console.error(e);
-            }
+            setTimeout(() => message.delete().catch(error => {
+                console.error("No se ha podido eliminar el mensaje:", error);
+            }), 3000)
         };
 
 
         if (walltext) {
             message.reply({ embeds: [embed_waltext] })
                 .then(msg => {
-                    setTimeout(() => msg.delete(), 3000);
+                    setTimeout(() => msg.delete().catch(error => {
+                        console.error("No se ha podido eliminar el mensaje:", error);
+                    }), 3000)
                 });
-
-            try {
-                setTimeout(() => message.delete(), 3000);
-            } catch (e) {
-                console.error(e);
-            }
+            setTimeout(() => message.delete().catch(error => {
+                console.error("No se ha podido eliminar el mensaje:", error);
+            }), 3000)
         }
 
         if (wltxflood && message.content.length > 200) {
-            if (message.content == "") return;
             message.reply({ embeds: [embed_waltext] })
                 .then(msg => {
-                    setTimeout(() => msg.delete(), 3000);
+                    setTimeout(() => msg.delete().catch(error => {
+                        console.error("No se ha podido eliminar el mensaje:", error);
+                    }), 3000)
                 });
-
-            try {
-                setTimeout(() => message.delete(), 3000);
-            } catch (e) {
-                console.error(e);
-            }
+            setTimeout(() => message.delete().catch(error => {
+                console.error("No se ha podido eliminar el mensaje:", error);
+            }), 3000)
         }
 
     }
