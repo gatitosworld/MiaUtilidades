@@ -2,9 +2,7 @@
   "description": "Bot oficial de GatitosWorld.",
   "version": "1.0.0",
   "scripts": {
-    "install": "npm i",
-    "start": "npm run start",
-    "test": "node ."
+    "start": "npm run start"
   },
   "dependencies": {
     "@discordjs/builders": "^0.15.0",
