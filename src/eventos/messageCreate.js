@@ -7,7 +7,7 @@ module.exports = {
     async execute(client, db, message) {
 
 if(message.author.bot) return;
-//if(message.member.permissions.has("ADMINISTRATOR")) return;
+if(message.member.permissions.has("ADMINISTRATOR")) return;
 
 
         let link = gw.links(message.content);  
@@ -15,9 +15,10 @@ if(message.author.bot) return;
 let mods_twitch = "868256143938564136"
 let ticket_parent = "827214252787499050";
 let staff_parent = "849284765554442270";
-if(link && message.channel.id == mods_twitch) return console.log("[AntiLinks] El mensaje se ha enviado en un canal autorizado.")
-if (link && message.channel.parentId == ticket_parent) return console.log("[AntiLinks] Se ha enviado en un ticket. Autorizado.");
-if (link && message.channel.parentId == staff_parent) return console.log("[AntiLinks] Se ha enviado en un canal de staff. Autorizado.")
+if(message.channel.id == mods_twitch) return console.log("[AntiLinks] El mensaje se ha enviado en un canal autorizado.")
+if (message.channel.parentId == ticket_parent) return console.log("[AntiLinks] Se ha enviado en un ticket. Autorizado.");
+if (message.channel.parentId == staff_parent) return console.log("[AntiLinks] Se ha enviado en un canal de staff. Autorizado.");
+if(walltext && message.channel.id == "851869089639301211" || wltxflood && message.channel.id == "851869089639301211") return console.log("[AntiLinks] El mensaje se ha enviado en un canal autorizado."); // Roleplay
 
         const embed_links = new MessageEmbed()
             .setTitle("¡No se permiten links externos en GatitosWorld!")
